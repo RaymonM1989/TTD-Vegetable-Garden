@@ -5,6 +5,9 @@ const
     getTotalYield,
     getCostsForPlant,
     getCostsForCrop,
+    getPriceForPlant,
+    getRevenueForPlant,
+    getRevenueForCrop,
 } = require("./farm");
 
 // INITIAL TEST (CAN'T ADJUST)
@@ -180,5 +183,29 @@ describe("getCostsForCrop", () =>
     test("Get costs for planting 1 crop", () => 
     {
         expect(getCostsForCrop(input)).toBe(20);
+    });
+});
+
+describe("getPriceForPlant", () => 
+{
+    test("Get price for selling 1 kg of plant", () => 
+    {
+        expect(getPriceForPlant(corn)).toBe(4);
+    });
+});
+
+describe("getRevenueForPlant", () => 
+{
+    test("Get revenue for selling total yield of 1 plant", () => 
+    {
+        expect(getRevenueForPlant(corn)).toBe(12);
+    });
+});
+
+describe("getRevenueForCrop", () => 
+{
+    test("Get revenue for selling total yield of crop", () => 
+    {
+        expect(getRevenueForCrop(input)).toBe(120);
     });
 });
