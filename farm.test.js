@@ -10,6 +10,7 @@ const
     getRevenueForCrop,
     getProfitForPlant,
     getProfitForCrop,
+    getTotalProfit,
 } = require("./farm");
 
 // INITIAL TEST (CAN'T ADJUST)
@@ -182,8 +183,8 @@ const inputA =
 const crops = 
 [
     { crop: corn, numCrops: 10 },
-    { crop: pumpkin, numCrops: 5 },
-    { crop: avocado, numCrops: 3 },
+    { crop: pumpkin, numCrops: 12 },
+    { crop: avocado, numCrops: 8 },
 ];
 
 describe("getCostsForPlant", () => 
@@ -244,6 +245,34 @@ describe("getProfitForPlant", () =>
         expect(getProfitForPlant(pumpkin)).toBe(13);
         expect(getProfitForPlant(avocado)).toBe(14);
     });
+
+    test("Get profit when yield is 0", () => 
+    {
+        const corn =
+        {
+            name: "corn",
+            yield: 0,
+            costs: 2,
+            price: 4,
+        };
+        const pumpkin =
+        {
+            name: "pumpkin",
+            yield: 0,
+            costs: 3,
+            price: 4,
+        };
+        const avocado =
+        {
+            name: "avocado",
+            yield: 0,
+            costs: 1,
+            price: 5,
+        };
+        expect(getProfitForPlant(corn)).toBe(-2);
+        expect(getProfitForPlant(pumpkin)).toBe(-3);
+        expect(getProfitForPlant(avocado)).toBe(-1);
+    });
 });
 
 describe("getProfitForCrop", () => 
@@ -253,5 +282,121 @@ describe("getProfitForCrop", () =>
         expect(getProfitForCrop(inputC)).toBe(100);
         expect(getProfitForCrop(inputP)).toBe(156);
         expect(getProfitForCrop(inputA)).toBe(112);
+    });
+
+    test("Get profit when numCrops is 0", () => 
+    {
+        const inputC = 
+        { 
+            crop: corn,
+            numCrops: 0,
+        };
+        const inputP = 
+        { 
+            crop: pumpkin,
+            numCrops: 0,
+        };
+        const inputA = 
+        { 
+            crop: avocado,
+            numCrops: 0,
+        };
+        expect(getProfitForCrop(inputC)).toBe(0);
+        expect(getProfitForCrop(inputP)).toBe(0);
+        expect(getProfitForCrop(inputA)).toBe(0);
+    });
+
+    test("Get profit when yield is 0", () => 
+    {
+        const corn =
+        {
+            name: "corn",
+            yield: 0,
+            costs: 2,
+            price: 4,
+        };
+        const pumpkin =
+        {
+            name: "pumpkin",
+            yield: 0,
+            costs: 3,
+            price: 4,
+        };
+        const avocado =
+        {
+            name: "avocado",
+            yield: 0,
+            costs: 1,
+            price: 5,
+        };
+        const inputC = 
+        { 
+            crop: corn,
+            numCrops: 10,
+        };
+        const inputP = 
+        { 
+            crop: pumpkin,
+            numCrops: 12,
+        };
+        const inputA = 
+        { 
+            crop: avocado,
+            numCrops: 8,
+        };
+        expect(getProfitForCrop(inputC)).toBe(-20);
+        expect(getProfitForCrop(inputP)).toBe(-36);
+        expect(getProfitForCrop(inputA)).toBe(-8);
+    });
+});
+
+describe("getTotalProfit", () => 
+{
+    test("Calculate total profit with multiple crops", () => 
+    {
+        expect(getTotalProfit(crops)).toBe(368);
+    });
+
+    test("Calculate total profit when yield is 0", () => 
+    {
+        const corn =
+        {
+            name: "corn",
+            yield: 0,
+            costs: 2,
+            price: 4,
+        };
+        const pumpkin =
+        {
+            name: "pumpkin",
+            yield: 0,
+            costs: 3,
+            price: 4,
+        };
+        const avocado =
+        {
+            name: "avocado",
+            yield: 0,
+            costs: 1,
+            price: 5,
+        };
+        const crops = 
+        [
+            { crop: corn, numCrops: 10 },
+            { crop: pumpkin, numCrops: 12 },
+            { crop: avocado, numCrops: 8 },
+        ];
+        expect(getTotalProfit(crops)).toBe(-64);
+    });
+
+    test("Get total profit when numCrops is 0", () => 
+    {
+        const crops = 
+        [
+            { crop: corn, numCrops: 0 },
+            { crop: pumpkin, numCrops: 0 },
+            { crop: avocado, numCrops: 0 },
+        ];
+        expect(getTotalProfit(crops)).toBe(0);
     });
 });

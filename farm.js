@@ -25,13 +25,22 @@ const getRevenueForCrop = input => getRevenueForPlant(input.crop) * input.numCro
 // Calculates 'Profit (in €) for selling the total Yield from 1 [input] crop' ('Profit from 1 plant' * 'Amount of plants in crop')
 const getProfitForCrop = input => getProfitForPlant(input.crop) * input.numCrops;
 
-// Calculates 'Total Yield (in kg) from multiple [input] crops' ('Yield from 1 plant' * 'Amount of plants in crop' for every 'crop' in the input)
+// Calculates 'Total Yield (in kg) from multiple [input] crops' (Add 'Yield from crop' for every 'crop' in the input)
 const getTotalYield = crops => 
 {
     let totalCrops = 0;
     crops.crops.forEach(element => 
         { totalCrops += getYieldForCrop(element); });
     return totalCrops;
+}
+
+// Calculates 'Total Profit (in €) from selling multiple [input] crops' (Add 'Profit from crop' for every 'crop' in the input)
+const getTotalProfit = crops => 
+{
+    let totalProfit = 0;
+    crops.forEach(element => 
+        { totalProfit += getProfitForCrop(element); });
+    return totalProfit;
 }
 
 module.exports = 
@@ -46,4 +55,5 @@ module.exports =
     getRevenueForCrop,
     getProfitForPlant,
     getProfitForCrop,
+    getTotalProfit,
 };
