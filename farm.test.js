@@ -155,11 +155,25 @@ const avocado =
     }
 };
 
-// Input with single crop
-const input = 
+// Input with single crop (corn)
+const inputC = 
 { 
     crop: corn,
     numCrops: 10,
+};
+
+// Input with single crop (pumpkin)
+const inputP = 
+{ 
+    crop: pumpkin,
+    numCrops: 12,
+};
+
+// Input with single crop (avocado)
+const inputA = 
+{ 
+    crop: avocado,
+    numCrops: 8,
 };
 
 // Input with multiple crops
@@ -175,6 +189,8 @@ describe("getCostsForPlant", () =>
     test("Get costs for planting 1 plant", () => 
     {
         expect(getCostsForPlant(corn)).toBe(2);
+        expect(getCostsForPlant(pumpkin)).toBe(3);
+        expect(getCostsForPlant(avocado)).toBe(1);
     });
 });
 
@@ -182,7 +198,9 @@ describe("getCostsForCrop", () =>
 {
     test("Get costs for planting 1 crop", () => 
     {
-        expect(getCostsForCrop(input)).toBe(20);
+        expect(getCostsForCrop(inputC)).toBe(20);
+        expect(getCostsForCrop(inputP)).toBe(36);
+        expect(getCostsForCrop(inputA)).toBe(8);
     });
 });
 
@@ -191,6 +209,8 @@ describe("getPriceForPlant", () =>
     test("Get price for selling 1 kg of plant", () => 
     {
         expect(getPriceForPlant(corn)).toBe(4);
+        expect(getPriceForPlant(pumpkin)).toBe(4);
+        expect(getPriceForPlant(avocado)).toBe(5);
     });
 });
 
@@ -199,6 +219,8 @@ describe("getRevenueForPlant", () =>
     test("Get revenue for selling total yield of 1 plant", () => 
     {
         expect(getRevenueForPlant(corn)).toBe(12);
+        expect(getRevenueForPlant(pumpkin)).toBe(16);
+        expect(getRevenueForPlant(avocado)).toBe(15);
     });
 });
 
@@ -206,6 +228,8 @@ describe("getRevenueForCrop", () =>
 {
     test("Get revenue for selling total yield of crop", () => 
     {
-        expect(getRevenueForCrop(input)).toBe(120);
+        expect(getRevenueForCrop(inputC)).toBe(120);
+        expect(getRevenueForCrop(inputP)).toBe(192);
+        expect(getRevenueForCrop(inputA)).toBe(120);
     });
 });
