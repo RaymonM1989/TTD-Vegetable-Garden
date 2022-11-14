@@ -45,11 +45,11 @@ const getTotalYield = (crops, environmentFactors) =>
 }
 
 // Calculates 'Total Profit (in €) from selling multiple [input] crops' (Add 'Profit from crop' for every 'crop' in the input)
-const getTotalProfit = crops => 
+const getTotalProfit = (crops, environmentFactors) => 
 {
     let totalProfit = 0;
     crops.forEach(element => 
-        { totalProfit += getProfitForCrop(element); });
+        { totalProfit += getProfitForCrop(element, environmentFactors); });
     return totalProfit;
 }
 

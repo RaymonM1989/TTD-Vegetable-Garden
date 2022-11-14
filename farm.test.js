@@ -115,7 +115,7 @@ describe("getTotalYield", () => {
     });
 
     // ADDED ENVIRONMENTAL FACTORS TEST (CAN'T ADJUST INPUT)
-    test("Get yield for plant with environment factors", () => 
+    test("Calculate total yield with multiple crops, with environmental factors", () => 
     {
         const corn = {
             name: "corn",
@@ -144,6 +144,7 @@ describe("getTotalYield", () => {
     });
 });
 
+// TEST VARIABLES
 // Corn properties
 const corn =
 {
@@ -270,6 +271,7 @@ const environmentFactors =
     soil: "high",
 }
 
+// TESTS (other than the provided ones)
 describe("getCostsForPlant", () => 
 {
     test("Get costs for planting 1 plant", () => 
@@ -302,7 +304,7 @@ describe("getPriceForPlant", () =>
 
 describe("getRevenueForPlant", () => 
 {
-    test("Get revenue for selling total yield of 1 plant, without environmental factors", () => 
+    test("Get revenue for selling total yield of 1 plant", () => 
     {
         expect(getRevenueForPlant(corn)).toBe(12);
         expect(getRevenueForPlant(pumpkin)).toBe(16);
@@ -509,5 +511,10 @@ describe("getTotalProfit", () =>
             { crop: avocado, numCrops: 0 },
         ];
         expect(getTotalProfit(crops)).toBe(0);
+    });
+
+    test("Calculate total profit with multiple crops, with environmental factors", () => 
+    {
+        expect(getTotalProfit(crops, environmentFactors)).toBeCloseTo(299.6, 2);
     });
 });
