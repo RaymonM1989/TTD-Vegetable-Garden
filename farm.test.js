@@ -325,6 +325,13 @@ describe("getRevenueForCrop", () =>
         expect(getRevenueForCrop(inputP)).toBe(192);
         expect(getRevenueForCrop(inputA)).toBe(120);
     });
+
+    test("Get revenue for selling total yield of crop, with environmental factors", () => 
+    {
+        expect(getRevenueForCrop(inputC, environmentFactors)).toBeCloseTo(66, 2);
+        expect(getRevenueForCrop(inputP, environmentFactors)).toBeCloseTo(230.4, 2);
+        expect(getRevenueForCrop(inputA, environmentFactors)).toBeCloseTo(67.2, 2);
+    });
 });
 
 describe("getProfitForPlant", () => 
