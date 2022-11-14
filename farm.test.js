@@ -3,6 +3,8 @@ const
     getYieldForPlant,
     getYieldForCrop,
     getTotalYield,
+    getCostsForPlant,
+    getCostsForCrop,
 } = require("./farm");
 
 // INITIAL TEST (CAN'T ADJUST)
@@ -57,5 +59,126 @@ describe("getTotalYield", () => {
         };
         const crops = [{ crop: corn, numCrops: 0 }];
         expect(getTotalYield({ crops })).toBe(0);
+    });
+});
+
+// Corn properties
+const corn =
+{
+    name: "corn",
+    yield: 3,
+    costs: 2,
+    price: 4,
+    factor: 
+    {
+        sun: 
+        {
+            low: -40,
+            medium: 0,
+            high: 40
+        },
+        wind: 
+        {
+            low: 20,
+            medium: 0,
+            high: -20
+        },
+        soil: 
+        {
+            low: 0,
+            medium: 0,
+            high: 0
+        }
+    }
+};
+
+// Pumpkin properties
+const pumpkin =
+{
+    name: "pumpkin",
+    yield: 4,
+    costs: 3,
+    price: 4,
+    factor: 
+    {
+        sun: 
+        {
+            low: -50,
+            medium: 0,
+            high: 50
+        },
+        wind: 
+        {
+            low: 0,
+            medium: -30,
+            high: -60
+        },
+        soil: 
+        {
+            low: 0,
+            medium: 0,
+            high: 0
+        }
+    }
+};
+
+// Avocado properties
+const avocado =
+{
+    name: "avocado",
+    yield: 3,
+    costs: 1,
+    price: 5,
+    factor: 
+    {
+        sun: 
+        {
+            low: 0,
+            medium: 10,
+            high: 20
+        },
+        wind: 
+        {
+            low: 0,
+            medium: 0,
+            high: 0
+        },
+        soil: 
+        {
+            low: -50,
+            medium: 0,
+            high: 50
+        }
+    }
+};
+
+// Input with single crop
+const input = 
+{ 
+    crop: corn,
+    numCrops: 10,
+};
+
+// Input with multiple crops
+const crops = 
+[
+    { crop: corn, numCrops: 10 },
+    { crop: pumpkin, numCrops: 5 },
+    { crop: avocado, numCrops: 3 },
+];
+
+describe("getCostsForPlant", () => 
+{
+    test("Get costs for planting 1 plant", () => 
+    {
+        expect(getCostsForPlant(corn)).toBe(2);
+    });
+});
+
+describe("getCostsForCrop", () => 
+{
+    test("Get costs for planting 1 crop", () => 
+    {
+        expect(getCostsForCrop(input)).toBe(20);
     });
 });
