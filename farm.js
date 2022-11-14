@@ -21,7 +21,7 @@ const getPriceForPlant = crop => crop.price;
 const getRevenueForPlant = (crop, environmentFactors) => getPriceForPlant(crop) * getYieldForPlant(crop, environmentFactors);
 
 // Calculate 'Profit (in €) from selling the Yield from 1 [input] plant' ('Revenue from 1 plant' - 'Costs for 1 plant')
-const getProfitForPlant = crop => getRevenueForPlant(crop) - getCostsForPlant(crop);
+const getProfitForPlant = (crop, environmentFactors) => getRevenueForPlant(crop, environmentFactors) - getCostsForPlant(crop);
 
 // Calculates 'Yield (in kg) from 1 [input] crop' ('Yield from 1 plant' * 'Amount of plants in crop')
 const getYieldForCrop = (input, environmentFactors) => getYieldForPlant(input.crop, environmentFactors) * input.numCrops;
@@ -33,7 +33,7 @@ const getCostsForCrop = input => getCostsForPlant(input.crop) * input.numCrops;
 const getRevenueForCrop = (input, environmentFactors) => getRevenueForPlant(input.crop, environmentFactors) * input.numCrops;
 
 // Calculates 'Profit (in €) for selling the total Yield from 1 [input] crop' ('Profit from 1 plant' * 'Amount of plants in crop')
-const getProfitForCrop = input => getProfitForPlant(input.crop) * input.numCrops;
+const getProfitForCrop = (input, environmentFactors) => getProfitForPlant(input.crop, environmentFactors) * input.numCrops;
 
 // Calculates 'Total Yield (in kg) from multiple [input] crops' (Add 'Yield from crop' for every 'crop' in the input)
 const getTotalYield = (crops, environmentFactors) => 

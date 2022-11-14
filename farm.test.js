@@ -370,6 +370,13 @@ describe("getProfitForPlant", () =>
         expect(getProfitForPlant(pumpkin)).toBe(-3);
         expect(getProfitForPlant(avocado)).toBe(-1);
     });
+
+    test("Get profit for selling total yield of 1 plant, with environmental factors", () => 
+    {
+        expect(getProfitForPlant(corn, environmentFactors)).toBeCloseTo(4.6, 2);
+        expect(getProfitForPlant(pumpkin, environmentFactors)).toBeCloseTo(16.2, 2);
+        expect(getProfitForPlant(avocado, environmentFactors)).toBeCloseTo(7.4, 2);
+    });
 });
 
 describe("getProfitForCrop", () => 
@@ -444,6 +451,13 @@ describe("getProfitForCrop", () =>
         expect(getProfitForCrop(inputC)).toBe(-20);
         expect(getProfitForCrop(inputP)).toBe(-36);
         expect(getProfitForCrop(inputA)).toBe(-8);
+    });
+
+    test("Get profit for selling total yield of crop, with environmental factors", () => 
+    {
+        expect(getProfitForCrop(inputC, environmentFactors)).toBeCloseTo(46, 2);
+        expect(getProfitForCrop(inputP, environmentFactors)).toBeCloseTo(194.4, 2);
+        expect(getProfitForCrop(inputA, environmentFactors)).toBeCloseTo(59.2, 2);
     });
 });
 
