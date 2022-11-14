@@ -1,5 +1,15 @@
 // Looks up 'Yield (in kg) from 1 [input] plant'
-const getYieldForPlant = crop => crop.yield;
+const getYieldForPlant = (crop, environmentFactors) => 
+{
+    plantYield = crop.yield;
+    if (environmentFactors != undefined && crop.factor != undefined && crop.factor.sun != undefined && environmentFactors.sun != undefined) 
+    { plantYield = plantYield * ((100 + crop.factor.sun[environmentFactors.sun]) / 100); }
+    if (environmentFactors != undefined && crop.factor != undefined && crop.factor.wind != undefined && environmentFactors.wind != undefined) 
+    { plantYield = plantYield * ((100 + crop.factor.wind[environmentFactors.wind]) / 100); }
+    if (environmentFactors != undefined && crop.factor != undefined && crop.factor.soil != undefined && environmentFactors.soil != undefined) 
+    { plantYield = plantYield * ((100 + crop.factor.soil[environmentFactors.soil]) / 100); }
+    return plantYield;
+}
 
 // Looks up 'Costs (in €) for 1 [input] plant'
 const getCostsForPlant = crop => crop.costs;
@@ -8,7 +18,7 @@ const getCostsForPlant = crop => crop.costs;
 const getPriceForPlant = crop => crop.price;
 
 // Calculates 'Revenue (in €) from selling the Yield from 1 [input] plant' ('Sale Price for 1 plant' * 'Yield from 1 plant')
-const getRevenueForPlant = crop => getPriceForPlant(crop) * getYieldForPlant(crop);
+const getRevenueForPlant = (crop, environmentFactors) => getPriceForPlant(crop) * getYieldForPlant(crop, environmentFactors);
 
 // Calculate 'Profit (in €) from selling the Yield from 1 [input] plant' ('Revenue from 1 plant' - 'Costs for 1 plant')
 const getProfitForPlant = crop => getRevenueForPlant(crop) - getCostsForPlant(crop);

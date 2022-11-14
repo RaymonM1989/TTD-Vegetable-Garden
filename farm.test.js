@@ -23,6 +23,28 @@ describe("getYieldForPlant", () => {
     test("Get yield for plant with no environment factors", () => {
         expect(getYieldForPlant(corn)).toBe(30);
     });
+
+    // ADDED ENVIRONMENTAL FACTORS TEST (CAN'T ADJUST INPUT)
+    test("Get yield for plant with environment factors", () => 
+    {
+        const corn = {
+            name: "corn",
+            yield: 30,
+            factor: {
+                sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+                },
+            },
+            };
+            
+            const environmentFactors = {
+            sun: "low",
+            };
+
+        expect(getYieldForPlant(corn, environmentFactors)).toBe(15);
+    });
 });
 
 // INITIAL TEST (CAN'T ADJUST)
@@ -79,21 +101,21 @@ const corn =
     {
         sun: 
         {
-            low: -40,
+            low: -50,
             medium: 0,
-            high: 40
+            high: 50
         },
         wind: 
         {
-            low: 20,
+            low: 10,
             medium: 0,
             high: -20
         },
         soil: 
         {
-            low: 0,
+            low: -10,
             medium: 0,
-            high: 0
+            high: 10
         }
     }
 };
@@ -109,21 +131,21 @@ const pumpkin =
     {
         sun: 
         {
-            low: -50,
-            medium: 0,
-            high: 50
+            low: 0,
+            medium: 10,
+            high: 30
         },
         wind: 
         {
             low: 0,
-            medium: -30,
-            high: -60
+            medium: 0,
+            high: 0
         },
         soil: 
         {
-            low: 0,
-            medium: 0,
-            high: 0
+            low: -60,
+            medium: -10,
+            high: 20
         }
     }
 };
@@ -139,21 +161,21 @@ const avocado =
     {
         sun: 
         {
-            low: 0,
-            medium: 10,
-            high: 20
+            low: -20,
+            medium: 0,
+            high: 50
         },
         wind: 
         {
             low: 0,
-            medium: 0,
-            high: 0
+            medium: -30,
+            high: -60
         },
         soil: 
         {
-            low: -50,
+            low: 0,
             medium: 0,
-            high: 50
+            high: 0
         }
     }
 };
@@ -187,6 +209,13 @@ const crops =
     { crop: avocado, numCrops: 8 },
 ];
 
+const environmentFactors =
+{
+    sun: "low",
+    wind: "medium",
+    soil: "high",
+}
+
 describe("getCostsForPlant", () => 
 {
     test("Get costs for planting 1 plant", () => 
@@ -219,11 +248,18 @@ describe("getPriceForPlant", () =>
 
 describe("getRevenueForPlant", () => 
 {
-    test("Get revenue for selling total yield of 1 plant", () => 
+    test("Get revenue for selling total yield of 1 plant, without environmental factors", () => 
     {
         expect(getRevenueForPlant(corn)).toBe(12);
         expect(getRevenueForPlant(pumpkin)).toBe(16);
         expect(getRevenueForPlant(avocado)).toBe(15);
+    });
+
+    test("Get revenue for selling total yield of 1 plant, with environmental factors", () => 
+    {
+        expect(getRevenueForPlant(corn, environmentFactors)).toBeCloseTo(6.6, 2);
+        expect(getRevenueForPlant(pumpkin, environmentFactors)).toBeCloseTo(19.2, 2);
+        expect(getRevenueForPlant(avocado, environmentFactors)).toBeCloseTo(8.4, 2);
     });
 });
 
