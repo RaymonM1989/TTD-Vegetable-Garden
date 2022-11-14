@@ -113,6 +113,35 @@ describe("getTotalYield", () => {
         const crops = [{ crop: corn, numCrops: 0 }];
         expect(getTotalYield({ crops })).toBe(0);
     });
+
+    // ADDED ENVIRONMENTAL FACTORS TEST (CAN'T ADJUST INPUT)
+    test("Get yield for plant with environment factors", () => 
+    {
+        const corn = {
+            name: "corn",
+            yield: 30,
+            factor: {
+                sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+                },
+            },
+            };
+            const pumpkin = {
+                name: "pumpkin",
+                yield: 4,
+            };
+            const crops = [
+                { crop: corn, numCrops: 5 },
+                { crop: pumpkin, numCrops: 2 },
+            ];            
+            const environmentFactors = {
+            sun: "low",
+            };
+
+        expect(getTotalYield({ crops }, environmentFactors)).toBe(83);
+    });
 });
 
 // Corn properties

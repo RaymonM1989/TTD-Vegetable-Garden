@@ -36,11 +36,11 @@ const getRevenueForCrop = input => getRevenueForPlant(input.crop) * input.numCro
 const getProfitForCrop = input => getProfitForPlant(input.crop) * input.numCrops;
 
 // Calculates 'Total Yield (in kg) from multiple [input] crops' (Add 'Yield from crop' for every 'crop' in the input)
-const getTotalYield = crops => 
+const getTotalYield = (crops, environmentFactors) => 
 {
     let totalCrops = 0;
     crops.crops.forEach(element => 
-        { totalCrops += getYieldForCrop(element); });
+        { totalCrops += getYieldForCrop(element, environmentFactors); });
     return totalCrops;
 }
 
