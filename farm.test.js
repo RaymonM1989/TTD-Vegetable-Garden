@@ -8,6 +8,8 @@ const
     getPriceForPlant,
     getRevenueForPlant,
     getRevenueForCrop,
+    getProfitForPlant,
+    getProfitForCrop,
 } = require("./farm");
 
 // INITIAL TEST (CAN'T ADJUST)
@@ -231,5 +233,25 @@ describe("getRevenueForCrop", () =>
         expect(getRevenueForCrop(inputC)).toBe(120);
         expect(getRevenueForCrop(inputP)).toBe(192);
         expect(getRevenueForCrop(inputA)).toBe(120);
+    });
+});
+
+describe("getProfitForPlant", () => 
+{
+    test("Get profit for selling total yield of 1 plant", () => 
+    {
+        expect(getProfitForPlant(corn)).toBe(10);
+        expect(getProfitForPlant(pumpkin)).toBe(13);
+        expect(getProfitForPlant(avocado)).toBe(14);
+    });
+});
+
+describe("getProfitForCrop", () => 
+{
+    test("Get profit for selling total yield of crop", () => 
+    {
+        expect(getProfitForCrop(inputC)).toBe(100);
+        expect(getProfitForCrop(inputP)).toBe(156);
+        expect(getProfitForCrop(inputA)).toBe(112);
     });
 });
